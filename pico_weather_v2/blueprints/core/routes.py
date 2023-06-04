@@ -7,4 +7,6 @@ core = Blueprint("core")
 
 @core.route("/", methods=["GET"])
 def home(request):
-    return Response(200, payload="Home")
+    sensors_manager = core.current_app.sensors_manager
+
+    return Response(200, payload=f"tmp: {sensors_manager.aht20.get_temperature()}")
