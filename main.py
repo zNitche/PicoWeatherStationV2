@@ -22,7 +22,7 @@ def mount_sd_card():
 def init_managers(app):
     i2c = machine.I2C(0, sda=machine.Pin(0), scl=machine.Pin(1), freq=400000)
 
-    setattr(app, "sensors_manager", SensorsManager(i2c))
+    setattr(app, "sensors_manager", SensorsManager(i2c, Config.WEATHER_LOGS_DIR_PATH))
 
 
 def create_app():
@@ -31,7 +31,6 @@ def create_app():
     init_managers(app)
 
     from pico_weather_v2.blueprints.core.routes import core
-
     app.register_blueprint(core)
 
     return app
@@ -45,8 +44,10 @@ def main():
                     debug_mode=Config.DEBUG)
 
     server.set_app(create_app())
-
     server.run()
+
+    server.app.sensors_manager.init_logs_timer()
+
     server.run_mainloop()
 
 
