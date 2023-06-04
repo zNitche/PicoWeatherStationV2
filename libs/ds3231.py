@@ -23,9 +23,10 @@ class DS3231:
     def bcd2dec(self, bcd):
         return ((bcd >> 4) * 10) + (bcd & 0x0F)
 
-    def get_datetime(self):
-        time_accurate = False if self.osf() else True
+    def is_time_accurate(self):
+        return False if self.osf() else True
 
+    def get_datetime(self):
         self.i2c.readfrom_mem_into(self.addr, DATETIME_REG, self._time_buffer)
 
         seconds = self.bcd2dec(self._time_buffer[0])
@@ -36,7 +37,7 @@ class DS3231:
         month = self.bcd2dec(self._time_buffer[5] & 0x7f)
         year = self.bcd2dec(self._time_buffer[6]) + 2000
 
-        return DateTime(year, month, day, hour, minutes, seconds), time_accurate
+        return DateTime(year, month, day, hour, minutes, seconds)
 
     def set_datetime(self, datetime):
         self._time_buffer[0] = self.dec2bcd(datetime.seconds)
@@ -71,11 +72,11 @@ class DateTime:
         self.year = year
 
     def to_iso_string(self):
-        month = str(self.month).zfill(2)
-        day = str(self.day).zfill(2)
-        hour = str(self.hour).zfill(2)
-        minutes = str(self.minutes).zfill(2)
-        seconds = str(self.seconds).zfill(2)
+        seconds = "{:02d}".format(self.seconds)
+        minutes = "{:02d}".format(self.minutes)
+        hour = "{:02d}".format(self.hour)
+        day = "{:02d}".format(self.day)
+        month = "{:02d}".format(self.month)
 
         return f"{self.year}-{month}-{day}T{hour}:{minutes}:{seconds}.000Z"
 
