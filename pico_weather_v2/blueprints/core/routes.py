@@ -9,4 +9,5 @@ core = Blueprint("core")
 def home(request):
     sensors_manager = core.current_app.sensors_manager
 
-    return Response(200, payload=f"tmp: {sensors_manager.aht20.get_temperature()}")
+    return Response(200,
+                    payload=f"tmp: {sensors_manager.aht20.get_temperature()}, bat voltage: {sensors_manager.get_battery_voltage()}")
