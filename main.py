@@ -22,11 +22,12 @@ def mount_sd_card():
 def init_managers(app):
     i2c = machine.I2C(0, sda=machine.Pin(0), scl=machine.Pin(1), freq=400000)
 
-    app.sensors_manager = SensorsManager(i2c)
+    setattr(app, "sensors_manager", SensorsManager(i2c))
 
 
 def create_app():
-    app = App(debug_mode=Config.DEBUG)
+    app = App(debug_mode=Config.DEBUG, static_files_dirs=["/pico_weather_v2/static",
+                                                          f"{Config.SD_CARD_MOUNT_DIR}/static"])
     init_managers(app)
 
     from pico_weather_v2.blueprints.core.routes import core
@@ -43,9 +44,9 @@ def main():
                     hotspot_name=Config.HOTSPOT_SSID, hotspot_password=Config.HOTSPOT_PASSWORD,
                     debug_mode=Config.DEBUG)
 
-    server.run()
-
     server.set_app(create_app())
+
+    server.run()
     server.run_mainloop()
 
 

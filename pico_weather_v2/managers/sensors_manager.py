@@ -25,3 +25,15 @@ class SensorsManager:
 
     def get_pv_voltage(self):
         return self.get_voltage_from_adc(self.pv_adc)
+
+    def get_temp_and_humidity(self):
+        temp = self.aht20.get_temperature()
+        humi = self.aht20.get_relative_humidity()
+
+        return temp, humi
+
+    def get_datetime(self):
+        return self.rtc.get_datetime()
+
+    def log_sensors_data(self):
+        pass
