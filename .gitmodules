@@ -1,0 +1,4 @@
+[submodule "strawberry"]
+	path = strawberry
+	url = https://github.com/zNitche/strawberryAPI.git
+	branch = prod
