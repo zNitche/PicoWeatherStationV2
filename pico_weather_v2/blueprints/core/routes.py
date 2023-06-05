@@ -20,7 +20,9 @@ def home(request):
         "humi": humi,
         "pv_voltage": pv_volt,
         "bat_voltage": bat_volt,
-        "datetime": datetime
+        "datetime": datetime,
+        "last_weather_log": core.current_app.weather_logger.last_logged,
+        "logged_rows_count": core.current_app.weather_logger.get_logged_rows_count(),
     }
 
     return routes_utils.render_template(core.get_template_path("index.html"), context)
