@@ -1,7 +1,6 @@
 from strawberry.controllers.server import Server
-from strawberry.controllers.app import App
 from pico_weather_v2.config import Config
-from pico_weather_v2.managers.sensors_manager import SensorsManager
+from pico_weather_v2.app import create_app
 from libs import sdcard
 import machine
 import uos
@@ -19,23 +18,6 @@ def mount_sd_card():
     uos.mount(vfs, Config.SD_CARD_MOUNT_DIR)
 
 
-def init_managers(app):
-    i2c = machine.I2C(0, sda=machine.Pin(0), scl=machine.Pin(1), freq=400000)
-
-    setattr(app, "sensors_manager", SensorsManager(i2c, Config.WEATHER_LOGS_DIR_PATH))
-
-
-def create_app():
-    app = App(debug_mode=Config.DEBUG, static_files_dirs=["/pico_weather_v2/static",
-                                                          f"{Config.SD_CARD_MOUNT_DIR}/static"])
-    init_managers(app)
-
-    from pico_weather_v2.blueprints.core.routes import core
-    app.register_blueprint(core)
-
-    return app
-
-
 def main():
     mount_sd_card()
 
@@ -46,7 +28,7 @@ def main():
     server.set_app(create_app())
     server.run()
 
-    server.app.sensors_manager.init_logs_timer()
+    server.app.weather_logger.init_timer(periodic=True, period=Config.WEATHER_LOGGER_TIMER_PERIOD)
 
     server.run_mainloop()
 
