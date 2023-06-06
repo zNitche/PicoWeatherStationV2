@@ -20,6 +20,11 @@ def create_app():
     init_app_modules(app)
 
     from pico_weather_v2.blueprints.core.routes import core
+    from pico_weather_v2.blueprints.weather_api.routes import weather_api
+    from pico_weather_v2.blueprints.api.routes import api
+
     app.register_blueprint(core)
+    app.register_blueprint(weather_api)
+    app.register_blueprint(api)
 
     return app
