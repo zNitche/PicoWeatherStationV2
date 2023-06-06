@@ -5,12 +5,22 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>PicoWeather</title>
         <link rel="stylesheet" href="/static/main.css">
+
+        <script src="/static/main.js"></script>
     </head>
     <body>
-        <div class="container">
-            #SECTION_SLOT content
+        <div class="main-container">
+            <div class="navbar">
+                <a href="/" class="navbar-item navbar-title">
+                    PWS
+                </a>
+                <a href="/weather_logs" class="navbar-item">
+                    WEATHER
+                </a>
+            </div>
+            <div class="content">
+                #SECTION_SLOT content
+            </div>
         </div>
-        <script src="/static/main.js"></script>
-<!--        <script src="/static/libs/chart.js"></script>-->
     </body>
 </html>

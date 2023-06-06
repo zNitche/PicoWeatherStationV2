@@ -7,22 +7,19 @@ core = Blueprint("core", templates_dir="/pico_weather_v2/blueprints/core/templat
 
 @core.route("/", methods=["GET"])
 def home(request):
-    sensors_manager = core.current_app.sensors_manager
+    return routes_utils.render_template(core.get_template_path("index.html"), {})
 
-    temp, humi = sensors_manager.get_temp_and_humidity()
-    bat_volt = sensors_manager.get_battery_voltage()
-    pv_volt = sensors_manager.get_pv_voltage()
 
-    datetime = sensors_manager.get_datetime().to_iso_string()
+@core.route("/weather_logs", methods=["GET"])
+def logged_weather_days(request):
+    return routes_utils.render_template(core.get_template_path("weather_days.html"), {})
 
-    context = {
-        "temp": temp,
-        "humi": humi,
-        "pv_voltage": pv_volt,
-        "bat_voltage": bat_volt,
-        "datetime": datetime,
-        "last_weather_log": core.current_app.weather_logger.last_logged,
-        "logged_rows_count": core.current_app.weather_logger.get_logged_rows_count(),
-    }
 
-    return routes_utils.render_template(core.get_template_path("index.html"), context)
+@core.route("/weather_logs/<day>", methods=["GET"])
+def weather_logs(request):
+    day = request.path_parameters.get("day")
+
+    if day is None:
+        return core.current_app.raise_error(404)
+
+    return routes_utils.render_template(core.get_template_path("weather_day.html"), {"day": day})

@@ -1,0 +1,14 @@
+#EXTEND /pico_weather_v2/static/base.html
+#SECTION content
+    <div class="vertical-container">
+      <h2>Logs for - {{day}}</h2>
+      <div id="log-data-table">
+
+      </div>
+    </div>
+    <script src="/static/libs/chart.js"></script>
+    <script src="/static/js/dashboard.js"></script>
+    <script>
+        renderLogTable("{{day}}");
+    </script>
+#END content

@@ -1,26 +1,46 @@
 #EXTEND /pico_weather_v2/static/base.html
 #SECTION content
-    <div class="">
-        <p>
-          temp: {{temp}}
-        </p>
-       <p>
-          humi: {{humi}}
-        </p>
-       <p>
-          pv_voltage: {{pv_voltage}}
-        </p>
-       <p>
-          bat_voltage: {{bat_voltage}}
-        </p>
-       <p>
-          datetime: {{datetime}}
-        </p>
-        <p>
-          last weather log: {{last_weather_log}}
-        </p>
-        <p>
-          logged rows: {{logged_rows_count}}
-        </p>
+    <div class="sensors-readings-wrapper">
+        <div class="sensor-reading">
+            <h3>
+                Temperature
+            </h3>
+            <span id="temperature-reading">-</span>
+        </div>
+        <div class="sensor-reading">
+            <h3>
+                Humidity
+            </h3>
+            <span id="humidity-reading">-</span>
+        </div>
+        <div class="sensor-reading">
+            <h3>
+                Battery voltage
+            </h3>
+            <span id="battery-voltage-reading">-</span>
+        </div>
+        <div class="sensor-reading">
+            <h3>
+                PV voltage
+            </h3>
+            <span id="pv-voltage-reading">-</span>
+        </div>
+        <div class="sensor-reading">
+            <h3>
+                Current date
+            </h3>
+            <span id="datetime-reading">-</span>
+        </div>
+        <div class="sensor-reading">
+            <h3>
+                Last log time
+            </h3>
+            <span id="last-log-time-reading">-</span>
+        </div>
     </div>
+    <script src="/static/js/dashboard.js"></script>
+    <script>
+        updateSensorsDashboard();
+        setInterval(updateSensorsDashboard, 2000);
+    </script>
 #END content
