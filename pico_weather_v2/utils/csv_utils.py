@@ -6,7 +6,7 @@ def get_header(file_path):
 
     if files_utils.check_if_exists(file_path):
         with open(file_path, "r") as file:
-            row = file.readline()
+            row = file.readline().replace("\n", "")
 
             if row:
                 header = row.split(",")
@@ -15,7 +15,7 @@ def get_header(file_path):
 
 
 def parse_row(row, header):
-    splited_row = row.split(",")
+    splited_row = row.replace("\n", "").split(",")
     parsed_row = {}
 
     for index, header_item in enumerate(header):
