@@ -64,12 +64,12 @@ class DS3231:
 
 class DateTime:
     def __init__(self, year, month, day, hour, minutes, seconds):
-        self.seconds = seconds
-        self.minutes = minutes
-        self.hour = hour
-        self.day = day
-        self.month = month
-        self.year = year
+        self.seconds = int(seconds)
+        self.minutes = int(minutes)
+        self.hour = int(hour)
+        self.day = int(day)
+        self.month = int(month)
+        self.year = int(year)
 
     def to_iso_string(self):
         seconds = "{:02d}".format(self.seconds)
