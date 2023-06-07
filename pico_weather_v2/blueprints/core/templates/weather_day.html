@@ -1,14 +1,20 @@
 #EXTEND /pico_weather_v2/static/base.html
 #SECTION content
-    <div class="vertical-container">
-      <h2>Logs for - {{day}}</h2>
-      <div id="log-data-table">
-
-      </div>
+    <div class="vertical-container" style="padding:10px;">
+        <h2>Logs for {{day}}</h2>
+        <div class="loader" id="loader"></div>
+        <div id="logs-wrapper" class="logs-wrapper d-none">
+            <canvas id="temperature-graph"></canvas>
+            <canvas id="humidity-graph"></canvas>
+            <canvas id="battery-voltage-graph"></canvas>
+            <canvas id="pv-voltage-graph"></canvas>
+            <div id="log-data-table" class="log-data-table"></div>
+        </div>
     </div>
     <script src="/static/libs/chart.js"></script>
-    <script src="/static/js/dashboard.js"></script>
+    <script src="/static/js/logged_days_board.js"></script>
+    <script src="/static/js/chart_utils.js"></script>
     <script>
-        renderLogTable("{{day}}");
+        renderLogs("/api/weather/logs/{{day}}");
     </script>
 #END content

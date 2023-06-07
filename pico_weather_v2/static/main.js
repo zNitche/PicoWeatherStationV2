@@ -25,3 +25,27 @@ async function postData(url, data={}) {
 
     return response.json();
 }
+
+
+function formatDateTimeFromIsoString(datetime) {
+    let formattedDatetime = null;
+
+    if (datetime) {
+        const splitedDatetime = datetime.split("T");
+        formattedDatetime = `${splitedDatetime[0]} ${splitedDatetime[1].split(".")[0]}`;
+    }
+
+    return formattedDatetime;
+}
+
+
+function formatTimeFromIsoString(datetime) {
+    let formattedTime = null;
+
+    if (datetime) {
+        const splitedDatetime = datetime.split("T");
+        formattedTime = splitedDatetime[1].split(".")[0];
+    }
+
+    return formattedTime;
+}
