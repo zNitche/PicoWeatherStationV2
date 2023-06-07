@@ -20,7 +20,9 @@ class SensorsManager:
         adc_value = adc.read_u16()
         adc_voltage = adc_value * Config.ADC_CONVERSION_FACTOR
 
-        return adc_voltage * Config.VOLTAGE_DIVIDER_FACTOR - Config.ADC_ACCURACY
+        voltage = adc_voltage * Config.VOLTAGE_DIVIDER_FACTOR - Config.ADC_ACCURACY
+
+        return round(voltage, Config.SENSORS_ACCURACY)
 
     def get_battery_voltage(self):
         return self.get_voltage_from_adc(self.bat_adc)
@@ -29,8 +31,8 @@ class SensorsManager:
         return self.get_voltage_from_adc(self.pv_adc)
 
     def get_temp_and_humidity(self):
-        temp = self.aht20.get_temperature()
-        humi = self.aht20.get_relative_humidity()
+        temp = round(self.aht20.get_temperature(), Config.SENSORS_ACCURACY)
+        humi = round(self.aht20.get_relative_humidity(), Config.SENSORS_ACCURACY)
 
         return temp, humi
 

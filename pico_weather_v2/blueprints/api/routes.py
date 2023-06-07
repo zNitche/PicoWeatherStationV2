@@ -18,10 +18,10 @@ def sensors(request):
     datetime = sensors_manager.get_datetime().to_iso_string()
 
     readings = {
-        "temperature": round(temp, 2),
-        "humidity": round(humidity, 2),
-        "pv_voltage": round(pv_voltage, 2),
-        "battery_voltage": round(battery_voltage, 2),
+        "temperature": temp,
+        "humidity": humidity,
+        "pv_voltage": pv_voltage,
+        "battery_voltage": battery_voltage,
         "datetime": datetime,
         "last_weather_log": weather_logger.last_logged,
     }
