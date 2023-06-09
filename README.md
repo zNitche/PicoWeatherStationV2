@@ -48,8 +48,9 @@ ToDo
 - 2x 6V solar panel 165x135x3mm
 - 1A fuse with wires
 - 2x 3.3V zener diode
-- 2x 4.7k resistor
-- 2x 1k resistor
+- 1x 4.7k resistor
+- 1x 1k resistor
+- 2x 10k resistor
 - 3x ARK connector raster 5.0mm 2 pin
 - some 3mm screws and nuts
 - some 4mm screws and nuts
