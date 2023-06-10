@@ -12,7 +12,6 @@ class WeatherLogger(LoggerBase):
         self.logs_per_hour = logs_per_hour
         self.logging_schedule = self.get_logging_schedule()
 
-        self.performing_log = False
         self.last_logged = None
 
     def timer_callback(self):
@@ -74,8 +73,6 @@ class WeatherLogger(LoggerBase):
         return f"{Config.WEATHER_LOGS_DIR_PATH}/{day_date}.csv"
 
     def log_sensors_data(self):
-        self.performing_log = True
-
         files_utils.create_dir_if_doesnt_exit(Config.WEATHER_LOGS_DIR_PATH)
 
         log_path = self.get_logs_path()
@@ -86,4 +83,3 @@ class WeatherLogger(LoggerBase):
         csv_utils.write_row(log_path, self.get_log_row())
 
         self.last_logged = self.sensors_manager.get_datetime().to_iso_string()
-        self.performing_log = False
