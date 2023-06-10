@@ -105,6 +105,27 @@ body, html {
   margin-top: -32px;
 }
 
+.management-form {
+    text-align: center;
+}
+
+.btn {
+  background-color: #008CBA
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+.danger-btn {
+    background-color: #f44336 !important;
+}
+
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }

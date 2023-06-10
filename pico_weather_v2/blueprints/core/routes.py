@@ -1,5 +1,6 @@
 from strawberry.routes.blueprint import Blueprint
 from strawberry.utils import routes_utils
+import machine
 
 
 core = Blueprint("core", templates_dir="/pico_weather_v2/blueprints/core/templates")
@@ -8,6 +9,23 @@ core = Blueprint("core", templates_dir="/pico_weather_v2/blueprints/core/templat
 @core.route("/", methods=["GET"])
 def home(request):
     return routes_utils.render_template(core.get_template_path("index.html"), {})
+
+
+@core.route("/management", methods=["GET"])
+def management(request):
+    app = core.current_app
+
+    context = {
+        "machine_reset_url": app.url_for("core.reset_machine"),
+    }
+
+    return routes_utils.render_template(core.get_template_path("management.html"), context)
+
+
+@core.route("/management/reset_machine", methods=["POST"])
+def reset_machine(request):
+    machine.reset()
+    return routes_utils.redirect(core.current_app.url_for("core.home"))
 
 
 @core.route("/weather_logs", methods=["GET"])
