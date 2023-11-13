@@ -35,7 +35,7 @@ git submodule update --init --recursive
 
 #### Wiring
 
-ToDo
+![exterior](.media/wiring_diagram.png)
 
 #### Parts
 
